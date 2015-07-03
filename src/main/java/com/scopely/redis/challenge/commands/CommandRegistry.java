@@ -1,5 +1,6 @@
 package com.scopely.redis.challenge.commands;
 
+import com.scopely.redis.challenge.commands.set.SetCommand;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.HashMap;
@@ -13,7 +14,7 @@ public class CommandRegistry {
     private final Map<CommandType, Command> registry = new HashMap<>();
 
     public CommandRegistry() {
-        //TODO add commands to registry
+        registry.put(CommandType.SET, new SetCommand());
     }
 
     public Command getCommand(CommandType commandType) {

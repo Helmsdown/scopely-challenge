@@ -2,6 +2,8 @@ package com.scopely.redis.challenge.commands;
 
 import com.scopely.redis.challenge.models.MasterDictionary;
 
+import java.util.List;
+
 /**
  * Created by russellb337 on 7/2/15.
  */
@@ -12,6 +14,6 @@ public interface Command {
      * @param masterDictionary the master dictionary
      * @return The successful result
      */
-    String execute(String[] split, MasterDictionary masterDictionary);
+    String execute(List<String> split, MasterDictionary masterDictionary);
 
 }

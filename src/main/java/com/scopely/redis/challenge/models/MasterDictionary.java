@@ -2,6 +2,7 @@ package com.scopely.redis.challenge.models;
 
 import com.scopely.redis.challenge.exceptions.NotAnIntegerOrOutOfRangeException;
 import com.scopely.redis.challenge.exceptions.WrongTimeException;
+import com.scopely.redis.challenge.utils.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
@@ -62,18 +63,15 @@ public class MasterDictionary {
         } else {
             //it is in the map, but it might not be a number
             final String value = redisMapValue.getValue();
-            if(StringUtils.isNumeric(value)) {
-                long number = Long.parseLong(value);
 
-                if(number < Long.MAX_VALUE - 1) {
-                    number++;
-                    result = number;
-                    redisMapValue.setValue("" + number);
-                } else {
-                    //incrementing would overflow a long (64-bit int)
-                    throw new NotAnIntegerOrOutOfRangeException();
-                }
+            long number = NumberUtils.toLong(value);
+
+            if(number < Long.MAX_VALUE) {
+                number++;
+                result = number;
+                redisMapValue.setValue("" + number);
             } else {
+                //incrementing would overflow a long (64-bit int)
                 throw new NotAnIntegerOrOutOfRangeException();
             }
         }
