@@ -3,7 +3,6 @@ package com.scopely.redis.challenge.models;
 import com.scopely.redis.challenge.exceptions.NotAnIntegerOrOutOfRangeException;
 import com.scopely.redis.challenge.exceptions.WrongTimeException;
 import com.scopely.redis.challenge.utils.NumberUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -79,11 +78,9 @@ public class MasterDictionary {
         return result;
     }
 
-    public synchronized int mapSize() {
+    public synchronized int size() {
         return map.size();
     }
-
-
 
     private SimpleMapValue getSimpleMapValue(String key) {
         final RedisObject redisObject = map.get(key);

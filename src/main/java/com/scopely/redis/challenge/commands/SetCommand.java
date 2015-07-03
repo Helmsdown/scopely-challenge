@@ -1,7 +1,6 @@
-package com.scopely.redis.challenge.commands.set;
+package com.scopely.redis.challenge.commands;
 
 import com.scopely.redis.challenge.commands.AbstractCommand;
-import com.scopely.redis.challenge.commands.Command;
 import com.scopely.redis.challenge.models.MasterDictionary;
 import com.scopely.redis.challenge.utils.NumberUtils;
 
@@ -11,7 +10,7 @@ import java.util.List;
 /**
  * Created by russellb337 on 7/2/15.
  */
-public class SetCommand extends AbstractCommand implements Command {
+public class SetCommand extends AbstractCommand {
     @Override
     public String execute(List<String> commandValues, MasterDictionary masterDictionary) {
 

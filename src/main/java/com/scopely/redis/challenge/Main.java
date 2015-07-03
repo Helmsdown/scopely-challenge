@@ -41,6 +41,6 @@ public class Main {
         acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 300);
         acceptor.bind(new InetSocketAddress(PORT));
 
-        LOGGER.info("Running...");
+        LOGGER.info("Listening on port {}", PORT);
     }
 }

@@ -41,6 +41,7 @@ public class MinaCommandHandler implements IoHandler {
     @Override
     public void exceptionCaught(IoSession session, Throwable cause) throws Exception {
         LOGGER.error("Exception caught", cause);
+        System.exit(1);
     }
 
     @Override
@@ -51,10 +52,13 @@ public class MinaCommandHandler implements IoHandler {
             response = commandProcessor.processCommand((String) message);
         } catch(RedisException e) {
             response = e.getWholeMessage();
+        } catch (Throwable t) {
+            response = "An unexpected exception occurred";
+            t.printStackTrace();
         }
 
         session.write(response);
-        LOGGER.info("command={}; response={}", message, response);
+        LOGGER.info("command=[{}]; response=[{}]", message, response);
     }
 
     @Override

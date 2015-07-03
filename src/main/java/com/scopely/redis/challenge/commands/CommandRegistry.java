@@ -1,6 +1,5 @@
 package com.scopely.redis.challenge.commands;
 
-import com.scopely.redis.challenge.commands.set.SetCommand;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.HashMap;
@@ -15,6 +14,9 @@ public class CommandRegistry {
 
     public CommandRegistry() {
         registry.put(CommandType.SET, new SetCommand());
+        registry.put(CommandType.GET, new GetCommand());
+        registry.put(CommandType.DEL, new DelCommand());
+        registry.put(CommandType.DBSIZE, new DbsizeCommand());
     }
 
     public Command getCommand(CommandType commandType) {
