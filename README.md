@@ -1,7 +1,8 @@
 # scopely-challenge
 
 # Progress
-I did not start on ZRANGE
+1. I did not event attempt ZRANGE.
+2. I have bugs in ZCARD and ZRANK
 
 # Instructions
 
