@@ -18,4 +18,8 @@ public class SortedSet extends RedisObject {
             set.add(member);
         }
     }
+
+    public int size() {
+        return set.size();
+    }
 }

@@ -101,6 +101,18 @@ public class MasterDictionary {
         return count;
     }
 
+    public synchronized int zcard(String key) {
+        int count = 0;
+
+        SortedSet set = getValueFromMapAsType(key, SortedSet.class);
+
+        if(set != null) {
+            count = set.size();
+        }
+
+        return count;
+    }
+
 
     private <T> T getValueFromMapAsType(String key, Class<T> type) {
         final RedisObject redisObject = map.get(key);

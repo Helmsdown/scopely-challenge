@@ -19,6 +19,7 @@ public class CommandRegistry {
         registry.put(CommandType.DBSIZE, new DbsizeCommand());
         registry.put(CommandType.INCR, new IncrCommand());
         registry.put(CommandType.ZADD, new ZaddCommand());
+        registry.put(CommandType.ZCARD, new ZcardCommand());
     }
 
     public Command getCommand(CommandType commandType) {
