@@ -51,4 +51,13 @@ public class SortedSetMember {
     public double getComparatorScore() {
         return comparatorScore;
     }
+
+    @Override
+    public String toString() {
+        return "SortedSetMember{" +
+                "value='" + value + '\'' +
+                ", score='" + score + '\'' +
+                ", comparatorScore=" + comparatorScore +
+                '}';
+    }
 }

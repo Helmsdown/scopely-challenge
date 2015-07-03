@@ -20,6 +20,7 @@ public class CommandRegistry {
         registry.put(CommandType.INCR, new IncrCommand());
         registry.put(CommandType.ZADD, new ZaddCommand());
         registry.put(CommandType.ZCARD, new ZcardCommand());
+        registry.put(CommandType.ZRANK, new ZrankCommand());
     }
 
     public Command getCommand(CommandType commandType) {

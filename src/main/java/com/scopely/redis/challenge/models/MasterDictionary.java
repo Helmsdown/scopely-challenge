@@ -113,6 +113,18 @@ public class MasterDictionary {
         return count;
     }
 
+    public synchronized Integer zrank(String key, String member) {
+
+        Integer result = null;
+
+        SortedSet set = getValueFromMapAsType(key, SortedSet.class);
+
+        if(set != null) {
+            result = set.getRank(member);
+        }
+
+        return result;
+    }
 
     private <T> T getValueFromMapAsType(String key, Class<T> type) {
         final RedisObject redisObject = map.get(key);
