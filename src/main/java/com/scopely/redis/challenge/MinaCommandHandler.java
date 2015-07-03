@@ -41,6 +41,7 @@ public class MinaCommandHandler implements IoHandler {
     @Override
     public void exceptionCaught(IoSession session, Throwable cause) throws Exception {
         LOGGER.error("Exception caught", cause);
+        session.close(true).await();
         System.exit(1);
     }
 

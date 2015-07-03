@@ -17,6 +17,8 @@ public class CommandRegistry {
         registry.put(CommandType.GET, new GetCommand());
         registry.put(CommandType.DEL, new DelCommand());
         registry.put(CommandType.DBSIZE, new DbsizeCommand());
+        registry.put(CommandType.INCR, new IncrCommand());
+        registry.put(CommandType.ZADD, new ZaddCommand());
     }
 
     public Command getCommand(CommandType commandType) {

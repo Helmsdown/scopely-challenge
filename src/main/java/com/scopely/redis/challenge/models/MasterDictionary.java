@@ -1,7 +1,7 @@
 package com.scopely.redis.challenge.models;
 
-import com.scopely.redis.challenge.exceptions.NotAnIntegerOrOutOfRangeException;
-import com.scopely.redis.challenge.exceptions.WrongTimeException;
+import com.scopely.redis.challenge.exceptions.NotAValidFloatException;
+import com.scopely.redis.challenge.exceptions.WrongTypeException;
 import com.scopely.redis.challenge.utils.NumberUtils;
 
 import java.util.Map;
@@ -24,10 +24,10 @@ public class MasterDictionary {
     public synchronized String get(String key) {
         String result = null;
 
-        final SimpleMapValue value = getSimpleMapValue(key);
+        final SimpleMapValue value = getValueFromMapAsType(key, SimpleMapValue.class);
 
-        if(value != null) {
-            if(!value.isExpired()) {
+        if (value != null) {
+            if (!value.isExpired()) {
                 result = value.getValue();
             } else {
                 map.remove(key);
@@ -42,7 +42,7 @@ public class MasterDictionary {
 
         final RedisObject removedValue = map.remove(key);
 
-        if(removedValue != null) {
+        if (removedValue != null) {
             result = 1;
         }
 
@@ -53,9 +53,9 @@ public class MasterDictionary {
 
         long result;
 
-        SimpleMapValue redisMapValue = getSimpleMapValue(key);
+        SimpleMapValue redisMapValue = getValueFromMapAsType(key, SimpleMapValue.class);
 
-        if(redisMapValue == null || (redisMapValue != null && redisMapValue.isExpired())) {
+        if (redisMapValue == null || (redisMapValue != null && redisMapValue.isExpired())) {
             //not currently in the map
             map.put(key, new SimpleMapValue("1"));
             result = 1;
@@ -65,13 +65,13 @@ public class MasterDictionary {
 
             long number = NumberUtils.toLong(value);
 
-            if(number < Long.MAX_VALUE) {
+            if (number < Long.MAX_VALUE) {
                 number++;
                 result = number;
                 redisMapValue.setValue("" + number);
             } else {
                 //incrementing would overflow a long (64-bit int)
-                throw new NotAnIntegerOrOutOfRangeException();
+                throw new NotAValidFloatException();
             }
         }
 
@@ -82,16 +82,35 @@ public class MasterDictionary {
         return map.size();
     }
 
-    private SimpleMapValue getSimpleMapValue(String key) {
+
+    public synchronized int zadd(String key, SortedSetMember... members) {
+        int count = 0;
+        SortedSet set = getValueFromMapAsType(key, SortedSet.class);
+
+        if (set == null) {
+            //create a new set
+            set = new SortedSet();
+            map.put(key, set);
+        }
+
+        for (SortedSetMember member : members) {
+            set.add(member);
+            count++;
+        }
+
+        return count;
+    }
+
+
+    private <T> T getValueFromMapAsType(String key, Class<T> type) {
         final RedisObject redisObject = map.get(key);
 
-        if(redisObject == null || redisObject instanceof SimpleMapValue) {
-            return (SimpleMapValue) redisObject;
+        if (redisObject == null || type.isInstance(redisObject)) {
+            return type.cast(redisObject);
 
         }
 
-        throw new WrongTimeException();
-
+        throw new WrongTypeException();
     }
 
 }
