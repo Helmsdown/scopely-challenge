@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jmockit:jmockit:1.18">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jmockit/jmockit/1.18/bb78edc9b04f9bd68c47862053d1fa51b8235837/jmockit-1.18.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jmockit/jmockit/1.18/c3670704e8f5ed87ba39312faa53ad87cdf94331/jmockit-1.18-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
